@@ -1,0 +1,22 @@
+import os
+import datetime
+from decouple import config
+from celery.schedules import crontab
+
+
+class Config(object):
+	REDIS_URL = config('REDIS_URL')
+	CELERY_BROKER_URL = REDIS_URL
+	CELERY_RESULT_BACKEND = REDIS_URL
+
+	SQLALCHEMY_DATABASE_URI = config('DATABASE_URL')
+
+	CELERYBEAT_SCHEDULE = {
+		'book-slots': {
+			'task': 'celery_task.book_slots',
+			'schedule': crontab(minute=5, hour=6)
+		}
+	}
+
+	TIMEZONE = config('TZ', default='Europe/London')
+	CELERY_TIMEZONE = TIMEZONE
