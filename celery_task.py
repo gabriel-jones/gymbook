@@ -28,3 +28,7 @@ def book_slots():
 			print(f"[~] Booking for {user.username} at {target_time} {target_date}")
 			if Config.BOOKING_LIVE:
 				book_slot(user.username, user.password, target_date, target_time)
+				reservation = Reservation()
+				reservation.schedule = schedule
+				db_session.add(reservation)
+				db_session.commit()
