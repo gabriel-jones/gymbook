@@ -5,6 +5,8 @@ from celery.schedules import crontab
 
 
 class Config(object):
+	BOOKING_LIVE = config('BOOKING_LIVE', cast=bool, default=False)
+
 	REDIS_URL = config('REDIS_URL')
 	CELERY_BROKER_URL = REDIS_URL
 	CELERY_RESULT_BACKEND = REDIS_URL
@@ -14,7 +16,7 @@ class Config(object):
 	CELERYBEAT_SCHEDULE = {
 		'book-slots': {
 			'task': 'celery_task.book_slots',
-			'schedule': crontab(minute=5, hour=6)
+			'schedule': crontab(minute=9, hour=8)
 		}
 	}
 
