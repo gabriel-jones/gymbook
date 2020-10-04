@@ -1,2 +1,3 @@
-celery_beat: celery beat -A app.celery -l INFO
-celery_worker: celery -A app.celery -l INFO
+celery_worker: celery --app app.celery -l INFO
+celery_beat: celery beat --app app.celery -l INFO
+
