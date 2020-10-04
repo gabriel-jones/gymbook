@@ -7,7 +7,7 @@ from datetime import datetime, time
 
 parser = argparse.ArgumentParser()
 subparsers = parser.add_subparsers(title="commands", dest="command")
-
+	
 parser_db = subparsers.add_parser('db_create')
 
 parser_add_user = subparsers.add_parser("add_user")
@@ -42,7 +42,7 @@ elif args.command == 'schedule':
 	schedule = Schedule()
 	schedule.user_id = args._uid
 	schedule.weekday = args._weekday
-	schedule.target_time = datetime.strptime(args._time, '%I:%M %p').time()
+	schedule.target_time = datetime.strptime(args._time, TIME_FORMAT).time()
 
 	print("[~] Creating schedule...")
 	db_session.add(schedule)
