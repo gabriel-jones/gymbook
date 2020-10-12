@@ -3,12 +3,15 @@ from app import db_session
 from models import *
 from format import TIME_FORMAT
 from datetime import datetime, time
+from celery_task import book_slots
 
 
 parser = argparse.ArgumentParser()
 subparsers = parser.add_subparsers(title="commands", dest="command")
 	
 parser_db = subparsers.add_parser('db_create')
+
+parser_book = subparsers.add_parser('book')
 
 parser_add_user = subparsers.add_parser("add_user")
 parser_add_user.add_argument('-u', '--username', dest='_username')
@@ -28,6 +31,9 @@ if args.command == 'db_create':
 	print("[~] Creating database...")
 	Base.metadata.create_all(engine)
 	print("[*] Database created")
+if args.command == 'book':
+	print("[~] Manual booking start...")
+	book_slots.delay()
 elif args.command == 'add_user':
 	user = User()
 	user.username = args._username
