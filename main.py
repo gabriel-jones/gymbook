@@ -13,6 +13,7 @@ def book_slot(username, password, target_date, target_time):
 	opts.headless = True
 
 	driver = webdriver.Firefox(options=opts)
+	
 	print("[~] Loading app...")
 	driver.get('https://www.sport.ed.ac.uk/online-booking/Account/LogOn')
 
