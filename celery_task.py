@@ -21,8 +21,8 @@ def book_slots():
 		print("[~] Delay finished")
 		target_date = datetime.datetime.today() + datetime.timedelta(days=3)
 		schedules = db_session.query(Schedule).filter_by(weekday=target_date.weekday())
-		# print(f"[~] Booking {len(schedules)} slots...")
-		for schedule in schedules:
+		print(f"[~] Booking {schedules.count()} slots...")
+		for schedule in schedules.all():
 			target_date = target_date.strftime(DATE_FORMAT)
 			target_time = schedule.target_time.strftime(TIME_FORMAT)
 
