@@ -20,8 +20,9 @@ def book_slots():
 		time.sleep(delay)
 		print("[~] Delay finished")
 		target_date = datetime.datetime.today() + datetime.timedelta(days=3)
-		schedule = db_session.query(Schedule).filter_by(weekday=target_date.weekday()).first()
-		if schedule is not None:
+		schedules = db_session.query(Schedule).filter_by(weekday=target_date.weekday())
+		print(f"[~] Booking {len(schedules)} slots...")
+		for schedule in schedules:
 			target_date = target_date.strftime(DATE_FORMAT)
 			target_time = schedule.target_time.strftime(TIME_FORMAT)
 
